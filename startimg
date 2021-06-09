@@ -1,0 +1,6 @@
+DEVIMG=ros2dev
+CONTNAME=ros2dev
+
+rocker --user --x11 \
+  --oyr-run-arg "--cap-add=SYS_PTRACE --security-opt seccomp=unconfined --name $CONTNAME -v $(pwd):/ws -w /ws" \
+  $IMGNAME
