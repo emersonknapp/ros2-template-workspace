@@ -1,0 +1,2 @@
+#!/bin/bash
+docker exec -it -w /ws ros2dev /bin/bash
