@@ -4,5 +4,5 @@ set -x
 DEVIMG=ros2dev
 CONTNAME=ros2dev
 
-rocker --user --x11 --nvidia $DEVIMG \
+rocker --user --x11 $DEVIMG \
   --oyr-run-arg "--name $CONTNAME -v $(pwd):/ws --cap-add=SYS_PTRACE --security-opt seccomp=unconfined"
