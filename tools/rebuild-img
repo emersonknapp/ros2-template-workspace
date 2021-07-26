@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
 
-docker build --pull . -f Dockerfile -t ros2dev
+docker build . -t ros2dev $@
