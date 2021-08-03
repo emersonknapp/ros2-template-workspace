@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ros2 bag record -a --compression-mode file --compression-format zstd --max-bag-size 86016 -o $1 

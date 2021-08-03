@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ros2 bag record -a --max-bag-size 86016 -o $1 
