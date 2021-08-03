@@ -1,8 +1,5 @@
 #!/bin/bash
-set -x
-
-DEVIMG=ros2dev
-CONTNAME=ros2dev
+set -euxo pipefail
 
 rocker --user --x11 $DEVIMG \
-  --oyr-run-arg "--name $CONTNAME -v $(pwd):/ws --cap-add=SYS_PTRACE --security-opt seccomp=unconfined"
+  --oyr-run-arg "--name $DEVIMG -v $(pwd):/ws --cap-add=SYS_PTRACE --security-opt seccomp=unconfined"

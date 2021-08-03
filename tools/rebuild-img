@@ -1,4 +1,4 @@
 #!/bin/bash
-set -x
+set -euxo pipefail
 
-docker build . -t ros2dev $@
+docker build . -t $DEVIMG $@
