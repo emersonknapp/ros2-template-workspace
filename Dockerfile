@@ -1,6 +1,7 @@
 FROM rostooling/setup-ros-docker:ubuntu-focal-latest
 
-ARG ROS_DISTRO=foxy
+ARG ROS_DISTRO=rolling
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Uncomment following lines to use local apt cache - probably need to tweak IPs
 # RUN echo 'Acquire::HTTP::Proxy "http://240.10.0.1:3142";' >> /etc/apt/apt.conf.d/01proxy \
