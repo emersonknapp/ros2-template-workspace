@@ -1,2 +1,9 @@
 build:
   symlink-install: true
+  build-base: build/gcc
+  install-base: build/gcc
+test:
+  build-base: build/gcc
+  install-base: build/gcc
+  # event-handlers: ['console_direct+']
+
