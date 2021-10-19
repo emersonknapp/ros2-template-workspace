@@ -35,5 +35,5 @@ COPY src/ src/
 RUN apt-get update && rosdep update && \
     rosdep install --from-paths src/ --ignore-src --rosdistro $ROS_DISTRO -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-5.3.1 urdfdom_headers"
 
-RUN python3 -m pip install -U colcon-mixin
+RUN python3 -m pip install -U colcon-mixin colcon-package-selection
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
