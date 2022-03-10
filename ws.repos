@@ -1,0 +1,13 @@
+repositories:
+  robograph:
+    type: git
+    url: git@github.com:emersonknapp/robograph
+    version: main
+  ros2/teleop_twist_joy:
+    type: git
+    url: git://github.com/ros2/teleop_twist_joy.git
+    version: rolling
+  ros_drivers/joystick_drivers:
+    type: git
+    url: git://github.com/ros-drivers/joystick_drivers.git
+    version: ros2
