@@ -1,4 +1,4 @@
-FROM rostooling/setup-ros-docker:ubuntu-focal-latest
+FROM rostooling/setup-ros-docker:ubuntu-jammy-latest
 
 ARG ROS_DISTRO=rolling
 ENV DEBIAN_FRONTEND=noninteractive
