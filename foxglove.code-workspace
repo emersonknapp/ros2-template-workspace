@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"path": "src/foxglove"
+		},
+		{
+			"path": "src/ros2"
+		},
+		{
+			"path": "src/ros-tooling"
+		},
+		{
+			"path": "src/rqt_bag"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"system_error": "cpp",
+			"array": "cpp",
+			"*.tcc": "cpp",
+			"memory": "cpp",
+			"future": "cpp",
+			"istream": "cpp",
+			"functional": "cpp",
+			"tuple": "cpp",
+			"utility": "cpp",
+			"variant": "cpp"
+		}
+	}
+}

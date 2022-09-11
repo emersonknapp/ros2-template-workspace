@@ -1,0 +1,9 @@
+build:
+  symlink-install: true
+  build-base: build/g
+  install-base: install/g
+test:
+  build-base: build/g
+  install-base: install/g
+  # event-handlers: ['console_direct+']
+

@@ -11,3 +11,7 @@ repositories:
     type: git
     url: https://github.com/foxglove/mcap
     version: main
+  rqt_bag:
+    type: git
+    url: https://github.com/ros-visualization/rqt_bag
+    version: ros2
