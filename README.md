@@ -18,8 +18,8 @@ pip3 install vcstool rocker off-your-rocker
 ```
 mkdir src
 vcs import src < ws.repos
-./tools/rebuild-img --build-arg ROS_DISTRO=rolling
-./tools/startimg
+DEVIMG=mbag ./tools/rebuild-img --build-arg ROS_DISTRO=rolling --build-arg UBUNTU_DISTRO=jammy
+DEVIMG=mbag ./tools/startimg
 ```
 
 In the container (basic ROS dev workflow):
@@ -32,5 +32,5 @@ colcon build
 To start a new shell in the running container,
 
 ```
-./tools/attach
+DEVIMG=mbag ./tools/attach
 ```
