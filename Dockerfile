@@ -12,7 +12,7 @@ ENV ROS_DISTRO=$ROS_DISTRO
 ENV ROS_PYTHON_VERSION=3
 
 ENV COLCON_HOME=/etc/colcon
-ENV COLCON_DEFAULTS_FILE=/ws/defaults.yaml
+ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
 # Install key development tools
 RUN apt-get update && apt install -y \
@@ -38,4 +38,4 @@ RUN apt-get update && rosdep update && \
 
 RUN python3 -m pip install -U colcon-mixin colcon-package-selection
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
-# RUN apt-get- update && apt-get install ros-$ROS_DISTRO-ros2cli-common-extensions
+RUN apt-get update && apt-get install ros-$ROS_DISTRO-ros2cli-common-extensions
