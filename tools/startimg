@@ -1,5 +1,5 @@
 #!/bin/bash
 set -euxo pipefail
 
-rocker --user --x11 $DEVIMG \
-  --oyr-run-arg "--name $DEVIMG -v $(pwd):/ws -w /ws --cap-add=SYS_PTRACE --security-opt seccomp=unconfined"
+rocker --user $DEVIMG \
+  --oyr-run-arg "--name $DEVIMG -v $(pwd):/ws -w /ws --cap-add=SYS_PTRACE --security-opt seccomp=unconfined" $@
