@@ -1,3 +1,4 @@
+alias cb='colcon build'
 alias ctvp='colcon test --event-handlers console_direct+ --executor sequential --packages-select'
 alias ctp='colcon test --packages-select'
 alias cbp='colcon build --packages-select'
