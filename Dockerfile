@@ -1,5 +1,4 @@
 ARG UBUNTU_DISTRO=jammy
-
 FROM rostooling/setup-ros-docker:ubuntu-${UBUNTU_DISTRO}-latest
 
 ARG ROS_DISTRO=rolling
@@ -13,7 +12,7 @@ ENV ROS_DISTRO=$ROS_DISTRO
 ENV ROS_PYTHON_VERSION=3
 
 ENV COLCON_HOME=/etc/colcon
-ENV COLCON_DEFAULTS_FILE=/ws/defaults.yaml
+ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
 # Install key development tools
 RUN apt-get update && apt install -y \
