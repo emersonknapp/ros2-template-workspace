@@ -38,4 +38,4 @@ RUN apt-get update && rosdep update && \
 
 RUN python3 -m pip install -U colcon-mixin colcon-package-selection
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
-RUN apt-get update && apt-get install ros-$ROS_DISTRO-ros2cli-common-extensions
+RUN apt-get update && apt-get install -y ros-$ROS_DISTRO-ros2cli-common-extensions
