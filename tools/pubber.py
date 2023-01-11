@@ -1,13 +1,18 @@
+import argparse
 import math
 import rclpy
 from rclpy.node import Node
+from rclpy.clock import Clock
+from rclpy.time import Time
+from rclpy.duration import Duration
 from std_msgs.msg import (
     Bool,
     Float32,
     Int64,
     String
 )
-
+import rosbag2_py as bag
+from rclpy.serialization import serialize_message
 
 class Pubby(Node):
     def __init__(self):
@@ -31,12 +36,42 @@ class Pubby(Node):
         msg.data = int(math.sin(now_s) * 100)
         self.int_pub.publish(msg)
 
-
-def main(args=None):
+def dopub(args=None):
     rclpy.init(args=args)
     node = Pubby()
     rclpy.spin(node)
     rclpy.shutdown()
 
+
+
+
+def writeabag():
+
+    clock = Clock()
+    writer = bag.SequentialWriter()
+    opts = bag.StorageOptions(uri=args.uri, storage_id="sqlite3")
+    writer.open(opts, bag.ConverterOptions())
+    writer.create_topic(bag.TopicMetadata("chat", "std_msgs/String", "cdr"))
+
+    time = Time(seconds=0.5)
+    for i in range(10):
+        msg = String(data=f"hi {i}")
+        writer.write('chat', serialize_message(msg), time.nanoseconds)
+        time += Duration(seconds=0.5)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-u", '--uri', default='testbag')
+    parser.add_argument('-p', '--pub', action='store_true', help='be a publisher')
+    args = parser.parse_args()
+
+    if args.pub:
+        dopub()
+    else:
+        writeabag()
+
+
 if __name__ == '__main__':
     main()
+    # writeabag()
