@@ -31,11 +31,13 @@ RUN echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted univers
 # Install comfort tools (extra optional but nice)
 RUN apt-get update && apt-get install -y zsh vim curl less htop
 
+RUN python3 -m pip install -U colcon-mixin colcon-package-selection
+
 # Install rosdeps for the workspace (not currently  allowing for ignoring packages)
 WORKDIR /ws
+# TODO how to cache the rosdep updates rather than any diff in src causing a reinstall
 COPY src/ src/
 RUN apt-get update && rosdep update && \
     rosdep install --from-paths src/ --ignore-src --rosdistro $ROS_DISTRO -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-6.0.1 urdfdom_headers"
 
-RUN python3 -m pip install -U colcon-mixin colcon-package-selection
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
