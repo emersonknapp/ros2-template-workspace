@@ -3,14 +3,10 @@ repositories:
     type: git
     url: https://github.com/emersonknapp/rcl.git
     version: emersonknapp/type-version-hash
-  ros2/rcl_interfaces:
+  ros2/rclcpp:
     type: git
-    url: https://github.com/emersonknapp/rcl_interfaces.git
-    version: emersonknapp/type-description-distribution
-  ros2/rmw_implementation:
-    type: git
-    url: https://github.com/emersonknapp/rmw_implementation.git
-    version: emersonknapp/type-version-hash
+    url: https://github.com/emersonknapp/rclcpp.git
+    version: emersonknapp/type-description
   ros2/rmw_connextdds:
     type: git
     url: https://github.com/emersonknapp/rmw_connextdds.git
@@ -30,4 +26,21 @@ repositories:
   ros2/rosidl:
     type: git
     url: https://github.com/emersonknapp/rosidl.git
-    version: emersonknapp/type-description-struct
+    version: emersonknapp/hash-typesupport
+  ros2/rosidl_typesupport:
+    type: git
+    url: https://github.com/emersonknapp/rosidl_typesupport.git
+    version: emersonknapp/hash-typesupport
+  ros2/rosidl_typesupport_fastrtps:
+    type: git
+    url: https://github.com/emersonknapp/rosidl_typesupport_fastrtps.git
+    version: emersonknapp/hash-typesupport
+
+#  ros2/rmw_implementation:
+#    type: git
+#    url: https://github.com/emersonknapp/rmw_implementation.git
+#    version: emersonknapp/type-version-hash
+#  ros2/rosidl_python:
+#    type: git
+#    url: https://github.com/emersonknapp/rosidl_python.git
+#    version: emersonknapp/type-version-hash
