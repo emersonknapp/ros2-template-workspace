@@ -7,34 +7,19 @@ repositories:
     type: git
     url: https://github.com/emersonknapp/rclcpp.git
     version: emersonknapp/type-description
-  ros2/rmw_connextdds:
-    type: git
-    url: https://github.com/emersonknapp/rmw_connextdds.git
-    version: emersonknapp/type-version-hash
-  ros2/rmw_cyclonedds:
-    type: git
-    url: https://github.com/emersonknapp/rmw_cyclonedds.git
-    version: emersonknapp/type-version-hash
-  ros2/rmw_dds_common:
-    type: git
-    url: https://github.com/emersonknapp/rmw_dds_common.git
-    version: emersonknapp/type-version-hash
-  ros2/rmw_fastrtps:
-    type: git
-    url: https://github.com/emersonknapp/rmw_fastrtps.git
-    version: emersonknapp/type-version-hash
   ros2/rosidl:
     type: git
     url: https://github.com/emersonknapp/rosidl.git
-    version: emersonknapp/hash-typesupport
+    version: emersonknapp/type-description-struct
+    # version: emersonknapp/raw-type-sources
   ros2/rosidl_typesupport:
     type: git
     url: https://github.com/emersonknapp/rosidl_typesupport.git
-    version: emersonknapp/hash-typesupport
+    version: emersonknapp/type-description-support
   ros2/rosidl_typesupport_fastrtps:
     type: git
     url: https://github.com/emersonknapp/rosidl_typesupport_fastrtps.git
-    version: emersonknapp/hash-typesupport
+    version: emersonknapp/type-description-support
 
 #  ros2/rmw_implementation:
 #    type: git
