@@ -1,0 +1,25 @@
+repositories:
+  ros2/rosidl:
+    type: git
+    url: https://github.com/emersonknapp/rosidl.git
+    version: emersonknapp/type-description-include-nestes
+  ros2/rosidl_typesupport:
+    type: git
+    url: https://github.com/emersonknapp/rosidl_typesupport.git
+    version: emersonknapp/type-description-nested-support
+  ros2/rosidl_typesupport_fastrtps:
+    type: git
+    url: https://github.com/emersonknapp/rosidl_typesupport_fastrtps.git
+    version: emersonknapp/type-description-nested-support
+  ros2/rmw_fastrtps:
+    type: git
+    url: https://github.com/emersonknapp/rmw_fastrtps
+    version: emersonknapp/get-type-hash-function
+  ros2/rmw_cyclonedds:
+    type: git
+    url: https://github.com/emersonknapp/rmw_cyclonedds
+    version: emersonknapp/get-type-hash-function
+  ros2/rmw_connextdds:
+    type: git
+    url: https://github.com/emersonknapp/rmw_connextdds
+    version: emersonknapp/get-type-hash-function
