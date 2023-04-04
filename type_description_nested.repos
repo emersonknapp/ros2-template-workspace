@@ -2,7 +2,7 @@ repositories:
   ros2/rcl:
     type: git
     url: https://github.com/emersonknapp/rcl.git
-    version: emersonknapp/get-type-hash-func
+    version: emersonknapp/get-type-hash-function
   ros2/rosidl:
     type: git
     url: https://github.com/emersonknapp/rosidl.git
