@@ -1,0 +1,17 @@
+build:
+  symlink-install: true
+  build-base: build/asan/
+  install-base: install/asan/
+  cmake-args:
+    - "-DOSRF_TESTING_TOOLS_CPP_DISABLE_MEMORY_TOOLS=ON"
+    - "-DINSTALL_EXAMPLES=OFF"
+    - "-DSECURITY=ON"
+    - "--no-warn-unused-cli"
+    - "-DCMAKE_BUILD_TYPE=Debug"
+  mixin:
+    - "asan-gcc"
+test:
+  build-base: build/asan
+  install-base: install/asan/
+  # event-handlers: ['console_direct+']
+

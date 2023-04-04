@@ -1,9 +1,9 @@
 build:
   symlink-install: true
-  build-base: build/
-  install-base: install/
+  build-base: build/r/
+  install-base: install/r/
 test:
-  build-base: build/
-  install-base: install/
+  build-base: build/r/
+  install-base: install/r/
   # event-handlers: ['console_direct+']
 
