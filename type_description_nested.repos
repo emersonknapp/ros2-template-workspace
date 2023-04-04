@@ -1,8 +1,12 @@
 repositories:
+  ros2/rcl:
+    type: git
+    url: https://github.com/emersonknapp/rcl.git
+    version: emersonknapp/get-type-hash-func
   ros2/rosidl:
     type: git
     url: https://github.com/emersonknapp/rosidl.git
-    version: emersonknapp/type-description-include-nestes
+    version: emersonknapp/type-description-include-nested
   ros2/rosidl_typesupport:
     type: git
     url: https://github.com/emersonknapp/rosidl_typesupport.git
@@ -14,12 +18,12 @@ repositories:
   ros2/rmw_fastrtps:
     type: git
     url: https://github.com/emersonknapp/rmw_fastrtps
-    version: emersonknapp/get-type-hash-function
+    version: emersonknapp/get-type-hash-func
   ros2/rmw_cyclonedds:
     type: git
     url: https://github.com/emersonknapp/rmw_cyclonedds
-    version: emersonknapp/get-type-hash-function
+    version: emersonknapp/get-type-hash-func
   ros2/rmw_connextdds:
     type: git
     url: https://github.com/emersonknapp/rmw_connextdds
-    version: emersonknapp/get-type-hash-function
+    version: emersonknapp/get-type-hash-func
