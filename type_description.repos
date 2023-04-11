@@ -3,16 +3,7 @@ repositories:
     type: git
     url: https://github.com/emersonknapp/rclcpp.git
     version: emersonknapp/type-description
-  ros2/rosidl:
+  ros2/rcl:
     type: git
-    url: https://github.com/emersonknapp/rosidl.git
-    version: emersonknapp/type-description-struct
-    # version: emersonknapp/raw-type-sources
-  ros2/rosidl_typesupport:
-    type: git
-    url: https://github.com/emersonknapp/rosidl_typesupport.git
-    version: emersonknapp/type-description-support
-  ros2/rosidl_typesupport_fastrtps:
-    type: git
-    url: https://github.com/emersonknapp/rosidl_typesupport_fastrtps.git
-    version: emersonknapp/type-description-support
+    url: https://github.com/achim-k/rcl
+    version: achim-k/rep2011_get_type_description_srv

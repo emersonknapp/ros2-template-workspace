@@ -1,5 +1,0 @@
-repositories:
-  org/repo:
-    type: git
-    url: https://github.com/org/repo
-    version: master
