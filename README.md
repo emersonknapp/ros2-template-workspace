@@ -1,19 +1,21 @@
 # ROS 2 Template Workspace
 
-Want to start developing a new ROS 2 feature? Clone this and get going.
+Want to start developing a new ROS 2 feature or application? Clone this and get going.
 
-## Getting Started
+## Prerequisites
 
-* Prerequisites
+1. [Install Docker](https://docs.docker.com/engine/install/)
+2. Install python workflow prerequisites
 
 ```
-# install docker
 pip3 install vcstool rocker off-your-rocker
 ```
 
+## Usage
+
 * Edit `ws.repos` to contain repositories relevant to development.
 
-* Build your dev environment and start it
+* Build your dev environment and start it:
 
 ```
 mkdir src
