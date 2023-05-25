@@ -1,9 +1,14 @@
 repositories:
-  ros2/rclcpp:
-    type: git
-    url: https://github.com/emersonknapp/rclcpp.git
-    version: emersonknapp/type-description
   ros2/rcl:
     type: git
-    url: https://github.com/achim-k/rcl
+    url: git@github.com:achim-k/rcl.git
     version: achim-k/rep2011_get_type_description_srv
+    remote: achim-k
+  ros2/rclcpp:
+    type: git
+    url: https://github.com/ros2/rclcpp.git
+    version: dynamic_subscription
+    remote: upstream
+  methylDragon/ros-type-introspection-prototype:
+    type: git
+    url: https://github.com/methylDragon/ros-type-introspection-prototype
