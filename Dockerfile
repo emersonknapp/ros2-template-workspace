@@ -22,6 +22,8 @@ RUN apt-get update && apt install -y \
   gdb \
   ccache
 
+RUN python3 -m pip install setuptools==58.2.0
+
 # Enable debug packages (optional but nice)
 RUN apt-get update && apt-get install ubuntu-dbgsym-keyring && rm -rf /var/lib/apt/lists/*
 RUN echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted universe multiverse" > /etc/apt/sources.list.d/ddebs.list && \
@@ -30,11 +32,12 @@ RUN echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted univers
 # Install comfort tools (extra optional but nice)
 RUN apt-get update && apt-get install -y zsh vim curl less htop
 
+RUN python3 -m pip install -U colcon-mixin colcon-package-selection
+RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
+
 # Install rosdeps for the workspace (not currently  allowing for ignoring packages)
 WORKDIR /ws
 COPY src/ src/
 RUN apt-get update && rosdep update && \
     rosdep install --from-paths src/ --ignore-src --rosdistro $ROS_DISTRO -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-6.0.1 urdfdom_headers"
 
-RUN python3 -m pip install -U colcon-mixin colcon-package-selection
-RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
