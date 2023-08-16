@@ -1,24 +1,39 @@
 ARG UBUNTU_DISTRO=jammy
-FROM rostooling/setup-ros-docker:ubuntu-${UBUNTU_DISTRO}-latest
+FROM rostooling/setup-ros-docker:ubuntu-${UBUNTU_DISTRO}-latest as base
 
 ARG ROS_DISTRO=rolling
 ENV DEBIAN_FRONTEND=noninteractive
-
-# Uncomment following lines to use local apt cache - probably need to tweak IPs
-# RUN echo 'Acquire::HTTP::Proxy "http://240.10.0.1:3142";' >> /etc/apt/apt.conf.d/01proxy \
-#  && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
-
 ENV ROS_DISTRO=$ROS_DISTRO
 ENV ROS_PYTHON_VERSION=3
 
 ENV COLCON_HOME=/etc/colcon
 ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
+FROM base as depcache
+COPY src/ src/
+# create file install_rosdeps.sh that won't change and bust cache if no dependencies change
+RUN rosdep update && \
+    rosdep install \
+      --from-paths src/ \
+      --ignore-src \
+      --rosdistro $ROS_DISTRO \
+      --default-yes \
+      --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-6.0.1 urdfdom_headers" \
+      --simulate \
+      | sort > /tmp/install_rosdeps.sh && chmod +x /tmp/install_rosdeps.sh
+
+FROM base as workspace
+WORKDIR /ws
+
+# Uncomment following lines to use local apt cache - probably need to tweak IPs
+# RUN echo 'Acquire::HTTP::Proxy "http://240.10.0.1:3142";' >> /etc/apt/apt.conf.d/01proxy \
+#  && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
+
 # Install key development tools
 RUN apt-get update && apt install -y \
-  clang \
-  libc++-dev \
-  libc++abi-dev \
+#  clang \
+#  libc++-dev \
+#  libc++abi-dev \
   gdb \
   ccache
 
@@ -30,14 +45,11 @@ RUN echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted univers
     echo "deb http://ddebs.ubuntu.com $(lsb_release -cs)-updates main restricted universe multiverse" > /etc/apt/sources.list.d/ddebs.list
 
 # Install comfort tools (extra optional but nice)
-RUN apt-get update && apt-get install -y zsh vim curl less htop
+RUN apt-get update && apt-get install -y zsh vim curl less htop tree
 
 RUN python3 -m pip install -U colcon-mixin colcon-package-selection
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
 
 # Install rosdeps for the workspace (not currently  allowing for ignoring packages)
-WORKDIR /ws
-COPY src/ src/
-RUN apt-get update && rosdep update && \
-    rosdep install --from-paths src/ --ignore-src --rosdistro $ROS_DISTRO -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-6.0.1 urdfdom_headers"
-
+COPY --from=depcache /tmp/install_rosdeps.sh /tmp/install_rosdeps.sh
+RUN apt-get update && /tmp/install_rosdeps.sh
