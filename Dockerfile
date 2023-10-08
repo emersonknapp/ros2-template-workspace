@@ -1,5 +1,6 @@
 ARG UBUNTU_DISTRO=jammy
-FROM rostooling/setup-ros-docker:ubuntu-${UBUNTU_DISTRO}-latest as base
+ARG ARCH_PREFIX
+FROM rostooling/setup-ros-docker:${ARCH_PREFIX}ubuntu-${UBUNTU_DISTRO}-latest as base
 
 ARG ROS_DISTRO=rolling
 ENV DEBIAN_FRONTEND=noninteractive
