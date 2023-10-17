@@ -11,7 +11,9 @@ ENV COLCON_HOME=/etc/colcon
 ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
 FROM base as depcache
+ARG SKIP_KEYS
 COPY src/ src/
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # create file install_rosdeps.sh that won't change and bust cache if no dependencies change
 RUN rosdep update && \
     rosdep install \
@@ -19,7 +21,7 @@ RUN rosdep update && \
       --ignore-src \
       --rosdistro $ROS_DISTRO \
       --default-yes \
-      --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 rti-connext-dds-6.0.1 urdfdom_headers" \
+      --skip-keys "${SKIP_KEYS}" \
       --simulate \
       | sort > /tmp/install_rosdeps.sh && chmod +x /tmp/install_rosdeps.sh
 
