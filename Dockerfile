@@ -15,7 +15,8 @@ ARG SKIP_KEYS
 COPY src/ src/
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # create file install_rosdeps.sh that won't change and bust cache if no dependencies change
-RUN rosdep update && \
+RUN echo "set -eux" > /tmp/install_rosdeps.sh && \
+    rosdep update && \
     rosdep install \
       --from-paths src/ \
       --ignore-src \
@@ -23,7 +24,7 @@ RUN rosdep update && \
       --default-yes \
       --skip-keys "${SKIP_KEYS}" \
       --simulate \
-      | sort > /tmp/install_rosdeps.sh && chmod +x /tmp/install_rosdeps.sh
+      | sort >> /tmp/install_rosdeps.sh && chmod +x /tmp/install_rosdeps.sh
 
 FROM base as workspace
 WORKDIR /ws
