@@ -12,19 +12,13 @@ ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
 FROM base as depcache
 ARG SKIP_KEYS
-COPY src/ src/
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-c"]
+
 # create file install_rosdeps.sh that won't change and bust cache if no dependencies change
-RUN echo "set -eux" > /tmp/install_rosdeps.sh && \
-    rosdep update && \
-    rosdep install \
-      --from-paths src/ \
-      --ignore-src \
-      --rosdistro $ROS_DISTRO \
-      --default-yes \
-      --skip-keys "${SKIP_KEYS}" \
-      --simulate \
-      | sort >> /tmp/install_rosdeps.sh && chmod +x /tmp/install_rosdeps.sh
+RUN --mount=type=bind,source=src,target=/tmp/src \
+    --mount=type=bind,source=tools/gather-rosdeps.sh,target=/tmp/gather-rosdeps.sh \
+    rosdep update \
+ && /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
 
 FROM base as workspace
 WORKDIR /ws
