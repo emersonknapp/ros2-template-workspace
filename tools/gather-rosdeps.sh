@@ -31,9 +31,9 @@ else
 fi
 
 # Combine all pip install lines into a single command
-pip_deps=$(echo "$initial" | grep "pip3 install" | awk '{print $NF}' | sort) || echo ''
+pip_deps=$(echo "$initial" | grep "pip3 install" | awk '{print $NF}' | sort | tr '\n' ' ') || echo ''
 if [ -n "${pip_deps}" ]; then
-  pip_statement="python3 -m pip install ${pip_deps[@]}"
+  pip_statement="python3 -m pip install ${pip_deps}"
 else
   pip_statement=""
 fi
@@ -45,3 +45,5 @@ ${apt_statement}
 ${pip_statement}
 EOF
 chmod +x $DEST
+
+echo "Success!"
