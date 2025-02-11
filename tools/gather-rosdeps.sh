@@ -9,10 +9,10 @@ shift
 
 initial=$(
   rosdep install \
-  --from-paths $@ \
+  --from-paths "$@" \
   --ignore-src \
   --skip-keys "${SKIP_KEYS:-""}" \
-  --rosdistro $ROS_DISTRO \
+  --rosdistro "$ROS_DISTRO" \
   --default-yes \
   --simulate)
 
@@ -38,12 +38,12 @@ else
   pip_statement=""
 fi
 
-cat << EOF > $DEST
+cat << EOF > "$DEST"
 #!/bin/bash
 set -euxo pipefail
 ${apt_statement}
 ${pip_statement}
 EOF
-chmod +x $DEST
+chmod +x "$DEST"
 
 echo "Success!"
