@@ -1,6 +1,6 @@
 ARG UBUNTU_DISTRO=jammy
 ARG ARCH_PREFIX
-FROM rostooling/setup-ros-docker:${ARCH_PREFIX}ubuntu-${UBUNTU_DISTRO}-latest as base
+FROM rostooling/setup-ros-docker:${ARCH_PREFIX}ubuntu-${UBUNTU_DISTRO}-latest AS base
 
 ARG ROS_DISTRO=rolling
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,7 +10,7 @@ ENV ROS_PYTHON_VERSION=3
 ENV COLCON_HOME=/etc/colcon
 ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
-FROM base as depcache
+FROM base AS depcache
 ARG SKIP_KEYS
 SHELL ["/bin/bash", "-c"]
 
@@ -20,7 +20,7 @@ RUN --mount=type=bind,source=src,target=/tmp/src \
     rosdep update \
  && /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
 
-FROM base as workspace
+FROM base AS workspace
 WORKDIR /ws
 
 # Uncomment following lines to use local apt cache - probably need to tweak IPs
