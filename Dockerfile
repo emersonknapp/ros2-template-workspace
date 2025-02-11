@@ -3,10 +3,12 @@ ARG UBUNTU_DISTRO=jammy
 ARG ARCH_PREFIX
 FROM rostooling/setup-ros-docker:${ARCH_PREFIX}ubuntu-${UBUNTU_DISTRO}-latest AS base
 
+ARG UBUNTU_DISTRO
 ARG ROS_DISTRO=rolling
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ROS_DISTRO=$ROS_DISTRO
 ENV ROS_PYTHON_VERSION=3
+ENV UBUNTU_DISTRO=$UBUNTU_DISTRO
 
 ENV COLCON_HOME=/etc/colcon
 ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
@@ -28,6 +30,9 @@ RUN --mount=type=bind,source=src,target=/tmp/src \
 # Workspace layer
 #################
 FROM base AS workspace
+
+SHELL ["/bin/bash", "-c"]
+
 WORKDIR /ws
 
 # Install key development tools
@@ -66,6 +71,9 @@ RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mix
 
 # Install rosdeps for the workspace (not currently allowing for ignoring packages)
 COPY --from=depcache /tmp/install_rosdeps.sh /tmp/install_rosdeps.sh
+# The libunwind problem _should_ be temporary but it conflicts with various ros installs (slam-toolbox -> libceres-dev -> libgoogle-glog-dev -> libunwind-dev)
+# https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
 RUN apt-get update \
+  && if [[ "$UBUNTU_DISTRO" == "jammy" ]]; then apt-get remove -y libunwind-14-dev; fi \
   && /tmp/install_rosdeps.sh \
   && rm -rf /var/lib/apt/lists/*
