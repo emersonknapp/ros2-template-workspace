@@ -23,7 +23,7 @@ initial=$(
 # which is a noop that takes multiple seconds per package
 
 # Finds lines with "apt-get install", extracts the last word (package name), then sorts
-apt_deps=$(echo "$initial" | grep "apt-get install" | awk '{print $NF}' | sort | tr '\n' ' ') || echo ''
+apt_deps=$(echo "$initial" | grep "apt-get install" | sed 's/'\''\(apt-get install -y\)\(.*\)'\'' .*/\1\2/g' | awk '{print $NF}' | sort | tr '\n' ' ') || echo ''
 if [ -n "${apt_deps}" ]; then
   apt_statement="apt-get install -y --no-install-recommends -q ${apt_deps}"
 else

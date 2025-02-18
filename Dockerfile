@@ -45,8 +45,6 @@ RUN apt-get update \
     ccache \
   && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --no-cache-dir setuptools==58.2.0
-
 # Enable debug packages (optional but nice)
 RUN apt-get update \
   && apt-get install -y --no-install-recommends -q \
@@ -64,9 +62,11 @@ RUN apt-get update \
     less \
     htop \
     tree \
+    python3-colcon-mixin \
+    python3-colcon-packages-selection \
   && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --no-cache-dir -U colcon-mixin colcon-package-selection
+
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
 
 # Install rosdeps for the workspace (not currently allowing for ignoring packages)
@@ -75,5 +75,6 @@ COPY --from=depcache /tmp/install_rosdeps.sh /tmp/install_rosdeps.sh
 # https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
 RUN apt-get update \
   && if [[ "$UBUNTU_DISTRO" == "jammy" ]]; then apt-get remove -y libunwind-14-dev; fi \
-  && /tmp/install_rosdeps.sh \
+  && cat /tmp/install_rosdeps.sh \
+  $$ /tmp/install_rosdeps.sh \
   && rm -rf /var/lib/apt/lists/*
