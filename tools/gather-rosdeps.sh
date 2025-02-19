@@ -8,6 +8,7 @@ DEST=$1
 shift
 
 initial=$(
+  PIP_BREAK_SYSTEM_PACKAGES=1 \
   rosdep install \
   --from-paths "$@" \
   --ignore-src \

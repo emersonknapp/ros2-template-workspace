@@ -13,6 +13,8 @@ ENV UBUNTU_DISTRO=$UBUNTU_DISTRO
 ENV COLCON_HOME=/etc/colcon
 ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
 ####################
 # Rosdep Cache Layer
 ####################
