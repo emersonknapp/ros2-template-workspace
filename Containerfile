@@ -1,5 +1,5 @@
 # hadolint global ignore=DL3008,DL3013
-ARG UBUNTU_DISTRO=jammy
+ARG UBUNTU_DISTRO=noble
 ARG ARCH_PREFIX
 FROM rostooling/setup-ros-docker:${ARCH_PREFIX}ubuntu-${UBUNTU_DISTRO}-latest AS base
 
@@ -63,7 +63,7 @@ RUN apt-get update \
     htop \
     tree \
     python3-colcon-mixin \
-    python3-colcon-packages-selection \
+    python3-colcon-package-selection \
   && rm -rf /var/lib/apt/lists/*
 
 
@@ -76,5 +76,5 @@ COPY --from=depcache /tmp/install_rosdeps.sh /tmp/install_rosdeps.sh
 RUN apt-get update \
   && if [[ "$UBUNTU_DISTRO" == "jammy" ]]; then apt-get remove -y libunwind-14-dev; fi \
   && cat /tmp/install_rosdeps.sh \
-  $$ /tmp/install_rosdeps.sh \
+  && /tmp/install_rosdeps.sh \
   && rm -rf /var/lib/apt/lists/*
