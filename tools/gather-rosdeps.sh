@@ -34,7 +34,7 @@ fi
 # Combine all pip install lines into a single command
 pip_deps=$(echo "$initial" | grep "pip3 install" | awk '{print $NF}' | sort | tr '\n' ' ') || echo ''
 if [ -n "${pip_deps}" ]; then
-  pip_statement="python3 -m pip install ${pip_deps}"
+  pip_statement="PIP_BREAK_SYSTEM_PACKAGES=1 python3 -m pip install ${pip_deps}"
 else
   pip_statement=""
 fi
