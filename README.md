@@ -36,3 +36,7 @@ To start a new shell in the running container,
 ```shell
 DEVIMG=my-img ./tools/attach
 ```
+
+### Repos Files
+
+For convenience working on ROS 2 core on live distributions, various `.repos` files are provided here in [repos/](./repos/). They are not meant to be combined - each is a standalone copy from https://github.com/ros2/ros2 `ros2.repos` at the relevant branch. I wouldn't trust these too much to be all the way up to date - again, they are merely a convenience for core development.
