@@ -20,14 +20,13 @@ pip3 install vcstool rocker off-your-rocker
 ```shell
 mkdir src
 vcs import src < ws.repos
-DEVIMG=my-img ./tools/rebuild-img --build-arg ROS_DISTRO=rolling --build-arg UBUNTU_DISTRO=jammy
-DEVIMG=my-img ./tools/startimg
+DEVIMG=my-img ./tools/build-ws --build-arg ROS_DISTRO=rolling --build-arg UBUNTU_DISTRO=noble
+DEVIMG=my-img ./tools/start-ws
 ```
 
 In the container (basic ROS dev workflow):
 
 ```shell
-source /opt/ros/$ROS_DISTRO/setup.bash
 colcon build
 ```
 
@@ -35,6 +34,12 @@ To start a new shell in the running container,
 
 ```shell
 DEVIMG=my-img ./tools/attach
+```
+
+Also, to avoid full reinstall of all dependencies, you can do an incremental rosdep installation of only new dependencies as a new layer on top of the prebuilt image:
+
+```shell
+DEVIMG=my-img ./tools/incremental-ws
 ```
 
 ### Repos Files

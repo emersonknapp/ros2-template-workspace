@@ -80,3 +80,9 @@ RUN apt-get update \
   && cat /tmp/install_rosdeps.sh \
   && /tmp/install_rosdeps.sh \
   && rm -rf /var/lib/apt/lists/*
+
+ARG OVERLAY_WS=/opt/ros/${ROS_DISTRO}
+ENV OVERLAY_WS=${OVERLAY_WS}
+COPY entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/bash"]

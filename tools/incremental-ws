@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euxo pipefail
+
+DIR="$(dirname "$(realpath "$0")")"
+"$DIR"/build-ws --build-arg BASE_IMAGE="${DEVIMG}"
