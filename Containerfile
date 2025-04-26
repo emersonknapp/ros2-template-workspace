@@ -83,6 +83,6 @@ RUN apt-get update \
 
 ARG OVERLAY_WS=/opt/ros/${ROS_DISTRO}
 ENV OVERLAY_WS=${OVERLAY_WS}
-COPY entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+COPY entry /opt/ros/ws-tools
+ENTRYPOINT ["/opt/ros/ws-tools/entrypoint.sh"]
 CMD ["/bin/bash"]

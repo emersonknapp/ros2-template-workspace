@@ -1,0 +1,29 @@
+# Colcon build
+cb() { colcon build --mixin ccache $@; }
+export -f cb
+# Colcon Build Packages
+cbp () { colcon build --mixin ccache --packages-select $@; }
+export -f cbp
+# Colcon Build Verbose Packages
+cbvp() { colcon build --mixin ccache --event-handlers console_direct+ --packages-select $@; }
+export -f cbvp
+# Colcon Build Packages Up-to
+cbpu() { colcon build --mixin ccache --packages-up-to $@; }
+export -f cbpu
+# Colcon Build Verbose Packages Up-to
+cbvpu() { colcon build --mixin ccache --event-handlers console_direct+ --packages-up-to $@; }
+export -f cbvpu
+
+# Colcon Test Packages
+ctp () { colcon test --packages-select $@; }
+export -f ctp
+# Colcon Test Verbose Packages
+ctvp () { colcon test --event-handlers console_direct+ --executor sequential --packages-select $@; }
+export -f ctvp
+# Colcon Test Linters-only Packages
+ctlp () { colcon test --mixin linters-only --packages-select $@; }
+export -f ctlp
+
+# Colcon List package-Names in-Directory
+clnd () { colcon list -n --base-paths $@; }
+export -f clnd
