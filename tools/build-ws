@@ -1,4 +1,4 @@
 #!/bin/bash
 set -euxo pipefail
 
-docker build . -t "$DEVIMG" -f Containerfile "$@"
+docker build . -t "$DEVIMG" -f Containerfile --build-arg SKIP_KEYS="rti-connext-dds-7.3.0" "$@"

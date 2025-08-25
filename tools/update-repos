@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euxo pipefail
+
+git checkout ros2/humble -- ros2.repos
+git mv -f ros2.repos repos/humble.repos
+
+git checkout ros2/jazzy -- ros2.repos
+git mv -f ros2.repos repos/jazzy.repos
+
+git checkout ros2/kilted -- ros2.repos
+git mv -f ros2.repos repos/kilted.repos
+
+git checkout ros2/rolling -- ros2.repos
+git mv -f ros2.repos repos/rolling.repos
