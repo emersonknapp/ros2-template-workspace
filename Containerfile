@@ -14,6 +14,8 @@ ENV COLCON_HOME=/etc/colcon
 ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
 
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
+# This is for colcon packages that explicitly unroll group-depends for buildfarm compatibility
+ENV DISABLE_GROUPS_WORKAROUND=1
 
 ####################
 # Rosdep Cache Layer
