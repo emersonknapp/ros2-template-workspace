@@ -1,14 +1,12 @@
 # hadolint global ignore=DL3008,DL3013
-ARG UBUNTU_DISTRO=noble
 ARG ARCH_PREFIX
-FROM rostooling/setup-ros-docker:${ARCH_PREFIX}ubuntu-${UBUNTU_DISTRO}-latest AS base
-
-ARG UBUNTU_DISTRO
 ARG ROS_DISTRO=rolling
+ARG BASE_IMAGE_NAME=polymathrobotics/ros:${ROS_DISTRO}-builder-ubuntu
+FROM ${BASE_IMAGE_NAME} AS base
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ROS_DISTRO=$ROS_DISTRO
 ENV ROS_PYTHON_VERSION=3
-ENV UBUNTU_DISTRO=$UBUNTU_DISTRO
 
 ENV COLCON_HOME=/etc/colcon
 ENV COLCON_DEFAULTS_FILE=/ws/tools/defaults.yaml
@@ -27,7 +25,7 @@ SHELL ["/bin/bash", "-c"]
 # create file install_rosdeps.sh that won't change and bust cache if no dependencies change
 RUN --mount=type=bind,source=src,target=/tmp/src \
     --mount=type=bind,source=tools/gather-rosdeps.sh,target=/tmp/gather-rosdeps.sh \
-    rosdep update \
+    rosdep update --rosdistro "$ROS_DISTRO" \
  && /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
 
 #################
@@ -70,15 +68,9 @@ RUN apt-get update \
     python3-colcon-package-selection \
   && rm -rf /var/lib/apt/lists/*
 
-
-RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update
-
-# Install rosdeps for the workspace (not currently allowing for ignoring packages)
+# Install dependencies for workspace
 COPY --from=depcache /tmp/install_rosdeps.sh /tmp/install_rosdeps.sh
-# The libunwind problem _should_ be temporary but it conflicts with various ros installs (slam-toolbox -> libceres-dev -> libgoogle-glog-dev -> libunwind-dev)
-# https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
 RUN apt-get update \
-  && if [[ "$UBUNTU_DISTRO" == "jammy" ]]; then apt-get remove -y libunwind-14-dev; fi \
   && cat /tmp/install_rosdeps.sh \
   && /tmp/install_rosdeps.sh \
   && rm -rf /var/lib/apt/lists/*
