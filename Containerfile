@@ -15,6 +15,10 @@ ENV PIP_BREAK_SYSTEM_PACKAGES=1
 # This is for colcon packages that explicitly unroll group-depends for buildfarm compatibility
 ENV DISABLE_GROUPS_WORKAROUND=1
 
+# Last layer of base, busts the `depcache` if changed
+ARG ROSDISTRO_VERSION="master"
+ENV ROSDISTRO_INDEX_URL=https://raw.githubusercontent.com/ros/rosdistro/${ROSDISTRO_VERSION}/index-v4.yaml
+
 ####################
 # Rosdep Cache Layer
 ####################
@@ -22,10 +26,12 @@ FROM base AS depcache
 ARG SKIP_KEYS
 SHELL ["/bin/bash", "-c"]
 
+# Run rosdep update as a separate step to allow for caching when pinned to a particular rosdistro version
+RUN rosdep update --rosdistro "$ROS_DISTRO"
+
 # create file install_rosdeps.sh that won't change and bust cache if no dependencies change
 RUN --mount=type=bind,source=src,target=/tmp/src \
     --mount=type=bind,source=tools/gather-rosdeps.sh,target=/tmp/gather-rosdeps.sh \
-    rosdep update --rosdistro "$ROS_DISTRO" \
  && /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
 
 #################
