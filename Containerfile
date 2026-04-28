@@ -32,7 +32,7 @@ RUN rosdep update --rosdistro "$ROS_DISTRO"
 # create file install_rosdeps.sh that won't change and bust cache if no dependencies change
 RUN --mount=type=bind,source=src,target=/tmp/src \
     --mount=type=bind,source=tools/gather-rosdeps.sh,target=/tmp/gather-rosdeps.sh \
- && /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
+    /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
 
 #################
 # Workspace layer
