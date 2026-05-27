@@ -27,4 +27,4 @@ start ws_name=default_ws:
 
 # Attach to a running workspace container
 attach ws_name=default_ws:
-    DEVIMG={{ws_name}} ./build-tools/attach
+    DEVIMG={{ws_name}} ./tools/attach

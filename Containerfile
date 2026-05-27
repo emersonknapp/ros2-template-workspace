@@ -34,6 +34,13 @@ RUN --mount=type=bind,source=src,target=/tmp/src \
     --mount=type=bind,source=tools/gather-rosdeps.sh,target=/tmp/gather-rosdeps.sh \
     /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
 
+
+FROM base AS claude-installer
+SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
+RUN wget -qO- https://claude.ai/install.sh | bash
+RUN cp $(readlink -f /root/.local/bin/claude) /usr/local/bin/claude
+RUN chmod 755 /usr/local/bin/claude
+
 #################
 # Workspace layer
 #################
@@ -80,6 +87,9 @@ RUN apt-get update \
   && cat /tmp/install_rosdeps.sh \
   && /tmp/install_rosdeps.sh \
   && rm -rf /var/lib/apt/lists/*
+
+# If you don't want claude, comment this out
+COPY --from=claude-installer /usr/local/bin/claude /usr/local/bin/claude
 
 ARG OVERLAY_WS=/opt/ros/${ROS_DISTRO}
 ENV OVERLAY_WS=${OVERLAY_WS}

@@ -11,6 +11,8 @@ rocker --user --x11 \
   --network host \
   --volume "$(pwd)":${WS} \
   --volume "${HOME}"/.cache/ccache:${WS}/.ccache \
+  --volume "${HOME}/.claude:${HOME}/.claude" \
+  --volume "${HOME}/.claude.json:${HOME}/.claude.json" \
   -e CCACHE_DIR=${WS}/.ccache \
   --name "${CONTAINER_NAME}" \
   "${DEVIMG}" \
