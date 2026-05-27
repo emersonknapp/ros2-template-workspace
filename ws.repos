@@ -1,5 +1,17 @@
 repositories:
-  org/repo:
+  launch:
     type: git
-    url: https://github.com/org/repo
-    version: master
+    url: git@github.com:ros2/launch.git
+    version: lyrical
+  launch_ros:
+    type: git
+    url: git@github.com:ros2/launch_ros.git
+    version: lyrical
+  launch_frontend_py:
+    type: git
+    url: git@github.com:ros-tooling/launch_frontend_py.git
+    version: main
+  ament_index:
+    type: git
+    url: https://github.com/ament/ament_index
+    version: lyrical
