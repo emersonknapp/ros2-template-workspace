@@ -6,9 +6,9 @@ Want to start developing a new ROS 2 feature or application? Clone this and get 
 
 1. [Docker](https://docs.docker.com/engine/install/)
 1. Python workflow prerequisites (install with `pip` or `uv`, etc):
-  - `vcs2l`
-  - `rocker`
-  - `off-your-rocker`
+   - `vcs2l`
+   - `rocker`
+   - `off-your-rocker`
 1. Recommended: [just](https://just.systems/man/en/installation.html)
 
 ## Usage
@@ -16,9 +16,9 @@ Want to start developing a new ROS 2 feature or application? Clone this and get 
 All workflows can be invoked from `tools/` scripts directly, or via convenience wrappers with `just`.
 See `just -l` for a list with comments on the commands.
 
-* Edit `ws.repos` to contain repositories relevant to development.
+- Edit `ws.repos` to contain repositories relevant to development.
 
-* Build your dev environment and start it:
+- Build your dev environment and start it:
 
 ```shell
 mkdir src

@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+# SPDX-FileCopyrightText: 2026 Emerson Knapp
+# SPDX-License-Identifier: Apache-2.0
 set -e
 
 cat /opt/ros/ws-tools/ros2_logo_ascii.txt

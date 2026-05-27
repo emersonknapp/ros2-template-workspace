@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Emerson Knapp
+# SPDX-License-Identifier: Apache-2.0
 set -euo pipefail
 
 # Usage: gather_rosdeps.sh <dest> <path1> <path2> ...

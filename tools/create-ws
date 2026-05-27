@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Emerson Knapp
+# SPDX-License-Identifier: Apache-2.0
 set -euxo pipefail
 
 docker build . -t "$DEVIMG" -f Containerfile --build-arg SKIP_KEYS="rti-connext-dds-7.3.0" "$@"

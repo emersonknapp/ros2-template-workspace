@@ -1,3 +1,5 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2026 Emerson Knapp
+# SPDX-License-Identifier: Apache-2.0
 set -euxo pipefail
 docker exec -it "$@" "$DEVIMG" /opt/ros/ws-tools/entrypoint.sh /bin/bash
