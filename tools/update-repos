@@ -3,14 +3,9 @@
 # SPDX-License-Identifier: Apache-2.0
 set -euxo pipefail
 
-git checkout ros2/humble -- ros2.repos
-git mv -f ros2.repos repos/humble.repos
+distros=(humble jazzy lyrical kilted rolling)
 
-git checkout ros2/jazzy -- ros2.repos
-git mv -f ros2.repos repos/jazzy.repos
-
-git checkout ros2/kilted -- ros2.repos
-git mv -f ros2.repos repos/kilted.repos
-
-git checkout ros2/rolling -- ros2.repos
-git mv -f ros2.repos repos/rolling.repos
+for distro in "${distros[@]}"; do
+  git checkout "ros2/${distro}" -- ros2.repos
+  git mv -f ros2.repos "repos/${distro}.repos"
+done

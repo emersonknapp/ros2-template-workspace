@@ -2,6 +2,11 @@ default:
     cat entry/ros2_logo_ascii.txt
     echo "Hello, ROS 2 developer!"
 
+### Meta-stuff
+
+update-repos:
+    ./tools/update-repos
+
 ### CLI ROS development workflow
 
 default_ws := "ros_ws"
