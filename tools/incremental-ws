@@ -4,4 +4,4 @@
 set -euxo pipefail
 
 DIR="$(dirname "$(realpath "$0")")"
-"$DIR"/create-ws --build-arg BASE_IMAGE_NAME="${DEVIMG}" "$@"
+"$DIR"/create-ws --target incremental "$@"

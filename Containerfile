@@ -1,7 +1,10 @@
+# check=skip=InvalidDefaultArgInFrom
 # hadolint global ignore=DL3008,DL3013
 ARG ARCH_PREFIX
 ARG ROS_DISTRO=rolling
 ARG BASE_IMAGE_NAME=polymathrobotics/ros:${ROS_DISTRO}-builder-ubuntu
+# Previously built workspace image, only used by the `incremental` target
+ARG WS_IMAGE
 FROM ${BASE_IMAGE_NAME} AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -34,8 +37,20 @@ RUN --mount=type=bind,source=src,target=/tmp/src \
     --mount=type=bind,source=tools/gather-rosdeps.sh,target=/tmp/gather-rosdeps.sh \
     /tmp/gather-rosdeps.sh /tmp/install_rosdeps.sh /tmp/src
 
+###################
+# Incremental layer
+###################
+FROM ${WS_IMAGE} AS incremental
+SHELL ["/bin/bash", "-c"]
+
+COPY --from=depcache /tmp/install_rosdeps.sh /tmp/install_rosdeps.sh
+RUN apt-get update \
+  && cat /tmp/install_rosdeps.sh \
+  && /tmp/install_rosdeps.sh \
+  && rm -rf /var/lib/apt/lists/*
+
 #################
-# Workspace layer
+# Workspace layer (keep last so it stays the default target)
 #################
 FROM base AS workspace
 
