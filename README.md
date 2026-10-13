@@ -13,19 +13,39 @@ Want to start developing a new ROS 2 feature or application? Clone this and get 
 
 ## Usage
 
-All workflows can be invoked from `tools/` scripts directly, or via convenience wrappers with `just`.
+All workflows are available as `just` recipes, which wrap the scripts in `tools/`.
 See `just -l` for a list with comments on the commands.
 
-- Edit `ws.repos` to contain repositories relevant to development.
+### Select a workspace
 
-- Build your dev environment and start it:
+Choose a ROS distro and a name for the workspace.
+The selection is stored in the gitignored `.ws.env.local` and used by all following commands, so you only need to do this once (or when switching).
 
 ```shell
-mkdir src
-vcs import src < ws.repos
-DEVIMG=my-img ./tools/build-ws --build-arg ROS_DISTRO=rolling --build-arg UBUNTU_DISTRO=noble
-DEVIMG=my-img ./tools/start-ws
+just distro lyrical   # one of `just list-distros`, defaults to rolling
+just name rosgraph    # defaults to the name of this directory
+just info          # show the current selection
 ```
+
+This produces the image `ros_ws/<name>:<distro>` (e.g. `ros_ws/rosgraph:lyrical`) and the container `<name>-<distro>` (e.g. `rosgraph-lyrical`).
+
+### Build and run
+
+- Edit `ws.repos` to contain repositories relevant to development, then import them into `src/`:
+
+```shell
+just sync                         # imports ws.repos
+just sync repos/lyrical.repos     # or any other .repos file
+```
+
+- Build your dev environment image and start it:
+
+```shell
+just create
+just start
+```
+
+Extra arguments to `docker build` can be passed after `--`, e.g. `just create -- --no-cache`.
 
 In the container (basic ROS dev workflow):
 
@@ -33,16 +53,28 @@ In the container (basic ROS dev workflow):
 colcon build
 ```
 
-To start a new shell in the running container,
+To start a new shell in the running container:
 
 ```shell
-DEVIMG=my-img ./tools/attach
+just attach
 ```
 
-Also, to avoid full reinstall of all dependencies, you can do an incremental rosdep installation of only new dependencies as a new layer on top of the prebuilt image:
+To avoid a full reinstall of all dependencies, you can do an incremental rosdep installation of only new dependencies as a new layer on top of the previously built image:
 
 ```shell
-DEVIMG=my-img ./tools/incremental-ws
+just create-inc
+```
+
+Run a full `just create` occasionally, since each incremental build stacks more layers on the image.
+
+### Without just
+
+The scripts in `tools/` take the image name from `DEVIMG` and the container name from `CONTAINER_NAME` (defaulting to `DEVIMG`):
+
+```shell
+DEVIMG=ros_ws/rosgraph:lyrical ./tools/create-ws --build-arg ROS_DISTRO=lyrical
+DEVIMG=ros_ws/rosgraph:lyrical CONTAINER_NAME=rosgraph-lyrical ./tools/start-ws
+CONTAINER_NAME=rosgraph-lyrical ./tools/attach
 ```
 
 ### Repos Files
